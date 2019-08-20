@@ -1,9 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Provider, observer } from 'mobx-react'
+import newDataStore from './src/mobx/DataStore'
 import AppNavigator from './src/AppNavigator'
 
-const App = () => {
-  return <AppNavigator />
-}
+const App = observer(() => {
+  return (
+    <AppNavigator />
+  )
+})
 
 export default App

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import mapObjects from '../utils/mapObjects'
 
 //*Custom hook for fetch data from API
 export const useFetch = url => {
@@ -11,13 +12,7 @@ export const useFetch = url => {
       setState(state => ({ data: state.data, error: false, loading: true }))
       fetch(url)
         .then(data => data.json())
-        .then(obj =>
-          Object.keys(obj).map(key => {
-            let newData = obj[key]
-            newData.key = key
-            return newData
-          })
-        )
+        .then(obj => mapObjects(obj))
         .then(newData => setState({ data: newData, error: false, loading: false }))
         .catch(function(error) {
           console.log(error)
@@ -27,7 +22,7 @@ export const useFetch = url => {
 
     //*Clear interval for the component unmounting
     return () => clearInterval(interval)
-  }, [url, useState])
+  }, [state])
 
   return state
 }
